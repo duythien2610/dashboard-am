@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sơ Đồ Use Case Chuẩn Swimlane (FPT SOP) — Dashboard AM</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Calibri, Arial, sans-serif; background: #f0f4f9; color: #1e293b; padding: 20px; }
+  .wrapper { max-width: 820px; margin: 0 auto; }
+  .header { background: #ffffff; border: 1px solid #d0d7de; padding: 18px 24px; border-radius: 8px; margin-bottom: 18px; }
+  .header h1 { font-size: 15pt; font-weight: 700; color: #1a73e8; margin-bottom: 6px; }
+  .header p { font-size: 10.5pt; color: #555; line-height: 1.4; }
+  .nav-tabs { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; }
+  .tab-btn { padding: 9px 16px; border: 1px solid #d0d7de; background: #ffffff; color: #333; font-size: 10pt; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .tab-btn:hover { background: #f1f5f9; }
+  .tab-btn.active { background: #1a73e8; color: #ffffff; border-color: #1a73e8; }
+  .tab-content { display: none; background: #ffffff; padding: 18px; border-radius: 8px; border: 1px solid #d0d7de; margin-bottom: 20px; }
+  .tab-content.active { display: block; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+  .card-title { font-size: 12pt; font-weight: bold; color: #1a73e8; }
+  .card-badge { padding: 3px 8px; background: #f0f4f9; color: #555; border: 1px solid #d0d7de; border-radius: 4px; font-size: 8.5pt; font-weight: bold; }
+  .svg-wrapper { background: #ffffff; text-align: center; overflow-x: auto; padding: 4px 0; }
+  .diagram-item { margin-bottom: 24px; background: #ffffff; padding: 16px; border-radius: 8px; border: 1px solid #d0d7de; }
+  .tips-box { margin-bottom: 16px; padding: 10px 14px; background: #e8f0fe; border-left: 4px solid #1a73e8; font-size: 9.5pt; color: #174ea6; border-radius: 4px; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="header">
+    <h1>HỆ THỐNG DIAGRAM USE CASE (CHUẨN SWIMLANE FPT TELECOM)</h1>
+    <p>Thiết kế siêu tinh gọn theo phong cách ảnh mẫu mentor: 2 làn <b>User</b> vs <b>BE</b>, đánh thẳng vào trọng tâm Main Flow, tuyệt đối không chồng chéo.</p>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('tab-all', this)">📑 Xem Cả 4 Sơ Đồ</button>
+    <button class="tab-btn" onclick="switchTab('tab-uc1', this)">1. Xem Dashboard &amp; Bộ lọc</button>
+    <button class="tab-btn" onclick="switchTab('tab-uc2', this)">2. Biểu đồ xu hướng &amp; GA4</button>
+    <button class="tab-btn" onclick="switchTab('tab-uc3', this)">3. Theo dõi Sales dùng AM</button>
+    <button class="tab-btn" onclick="switchTab('tab-uc4', this)">4. Top Sales &amp; Top Link AM</button>
+  </div>
+
+  <!-- TAB ALL -->
+  <div id="tab-all" class="tab-content active">
+    <div class="tips-box">
+      💡 <b>HƯỚNG DẪN CHỤP ẢNH DÁN VÀO EXCEL:</b> Nhấn tổ hợp phím <b>Windows + Shift + S</b>, quét chọn khung viền ngoài của sơ đồ (bao gồm cả Badge tên), sau đó mở file Excel click vào ô tương ứng trong cột Diagram và nhấn <b>Ctrl + V</b>.
+    </div>
+
+    <!-- ITEM 1 -->
+    <div class="diagram-item">
+      <div class="card-header">
+        <div class="card-title">1. Xem Dashboard &amp; Bộ lọc đa chiều</div>
+        <span class="card-badge">Dán vào Sheet 2 Excel</span>
+      </div>
+      <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="200" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="110" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Xem Dashboard &amp; Bộ lọc</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Trên menu SOP, tại nhóm <tspan font-weight="bold">Tiếp thị liên kết</tspan>,</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">chọn <tspan font-weight="bold">Dashboard Báo Cáo AM</tspan></text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; tùy chỉnh Bộ lọc (Khoảng ngày, Vùng/CN)</text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Kiểm tra thẩm quyền SSO, tổng hợp dữ liệu</text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">và hiển thị <tspan font-weight="bold">5 thẻ KPI realtime</tspan></text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">kèm tỷ lệ tăng trưởng Like-for-like <tspan font-weight="bold">[upto]</tspan></text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="diagram-item">
+      <div class="card-header">
+        <div class="card-title">2. Xem biểu đồ xu hướng, cơ cấu &amp; Báo cáo GA4</div>
+        <span class="card-badge">Dán vào Sheet 3 Excel</span>
+      </div>
+      <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="210" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="115" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Biểu đồ xu hướng &amp; GA4</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Trên Dashboard SOP, cuộn xem khu vực</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222"><tspan font-weight="bold">Biểu đồ xu hướng</tspan> hoặc <tspan font-weight="bold">Báo cáo GA4</tspan></text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">(hover tooltip hoặc click xem URL trang đích)</text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Vẽ đồ thị xu hướng <tspan font-weight="bold">Clicks vs Users</tspan>,</text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">phân bổ cơ cấu (Campaign, Thiết bị, Vùng)</text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; hiển thị danh sách <tspan font-weight="bold">Top 10 Trang Đích GA4</tspan></text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="diagram-item">
+      <div class="card-header">
+        <div class="card-title">3. Quản lý &amp; Theo dõi Sales sử dụng AM (Tính Năng Mới)</div>
+        <span class="card-badge">Dán vào Sheet 4 Excel</span>
+      </div>
+      <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="220" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="120" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Theo dõi Sales sử dụng AM</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Cuộn đến bảng <tspan font-weight="bold">Theo dõi Sales sử dụng AM</tspan>,</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">chuyển tab <tspan font-weight="bold">'Chưa sử dụng AM'</tspan> (Clicks = 0)</text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">tìm kiếm nhân sự hoặc nhấn <tspan font-weight="bold">Xuất Excel</tspan></text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Đồng bộ danh bạ SOP, hiển thị <tspan font-weight="bold">Bảng 8 cột</tspan></text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">phân định nhân viên Đã dùng / Chưa dùng</text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; xuất file Excel danh sách cần đôn đốc</text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+    </div>
+
+    <!-- ITEM 4 -->
+    <div class="diagram-item">
+      <div class="card-header">
+        <div class="card-title">4. Xếp hạng Top Sales &amp; Top Link AM</div>
+        <span class="card-badge">Dán vào Sheet 5 Excel</span>
+      </div>
+      <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="210" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="115" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Top Sales &amp; Top Link AM</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Trên Dashboard SOP, cuộn đến khu vực</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222"><tspan font-weight="bold">Bảng xếp hạng Top Sales &amp; Top Link</tspan></text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">(click icon xem link AM cá nhân hoặc mở Landing Page)</text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Xếp hạng <tspan font-weight="bold">Top 10 Sales</tspan> theo Đơn Online</text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">thành công giảm dần (vinh danh Top 1, 2, 3)</text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; hiển thị <tspan font-weight="bold">Top 8 Link tiếp thị</tspan> theo Clicks thật</text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+    </div>
+  </div>
+
+  <!-- TAB UC1 -->
+  <div id="tab-uc1" class="tab-content">
+    <div class="card-header">
+      <div class="card-title">1. Xem Dashboard &amp; Bộ lọc đa chiều</div>
+      <span class="card-badge">Sheet 2 Excel</span>
+    </div>
+    <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="200" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="110" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Xem Dashboard &amp; Bộ lọc</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Trên menu SOP, tại nhóm <tspan font-weight="bold">Tiếp thị liên kết</tspan>,</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">chọn <tspan font-weight="bold">Dashboard Báo Cáo AM</tspan></text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; tùy chỉnh Bộ lọc (Khoảng ngày, Vùng/CN)</text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Kiểm tra thẩm quyền SSO, tổng hợp dữ liệu</text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">và hiển thị <tspan font-weight="bold">5 thẻ KPI realtime</tspan></text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">kèm tỷ lệ tăng trưởng Like-for-like <tspan font-weight="bold">[upto]</tspan></text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+  </div>
+
+  <!-- TAB UC2 -->
+  <div id="tab-uc2" class="tab-content">
+    <div class="card-header">
+      <div class="card-title">2. Xem biểu đồ xu hướng, cơ cấu &amp; Báo cáo GA4</div>
+      <span class="card-badge">Sheet 3 Excel</span>
+    </div>
+    <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="210" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="115" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Biểu đồ xu hướng &amp; GA4</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Trên Dashboard SOP, cuộn xem khu vực</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222"><tspan font-weight="bold">Biểu đồ xu hướng</tspan> hoặc <tspan font-weight="bold">Báo cáo GA4</tspan></text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">(hover tooltip hoặc click xem URL trang đích)</text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Vẽ đồ thị xu hướng <tspan font-weight="bold">Clicks vs Users</tspan>,</text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">phân bổ cơ cấu (Campaign, Thiết bị, Vùng)</text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; hiển thị danh sách <tspan font-weight="bold">Top 10 Trang Đích GA4</tspan></text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+  </div>
+
+  <!-- TAB UC3 -->
+  <div id="tab-uc3" class="tab-content">
+    <div class="card-header">
+      <div class="card-title">3. Quản lý &amp; Theo dõi Sales sử dụng AM</div>
+      <span class="card-badge">Sheet 4 Excel</span>
+    </div>
+    <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="220" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="120" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Theo dõi Sales sử dụng AM</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Cuộn đến bảng <tspan font-weight="bold">Theo dõi Sales sử dụng AM</tspan>,</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">chuyển tab <tspan font-weight="bold">'Chưa sử dụng AM'</tspan> (Clicks = 0)</text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">tìm kiếm nhân sự hoặc nhấn <tspan font-weight="bold">Xuất Excel</tspan></text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Đồng bộ danh bạ SOP, hiển thị <tspan font-weight="bold">Bảng 8 cột</tspan></text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">phân định nhân viên Đã dùng / Chưa dùng</text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; xuất file Excel danh sách cần đôn đốc</text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+  </div>
+
+  <!-- TAB UC4 -->
+  <div id="tab-uc4" class="tab-content">
+    <div class="card-header">
+      <div class="card-title">4. Xếp hạng Top Sales &amp; Top Link AM</div>
+      <span class="card-badge">Sheet 5 Excel</span>
+    </div>
+    <div class="svg-wrapper"><svg width="720" height="370" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif;font-size:11pt;background:#ffffff;">
+  <!-- Top Badge -->
+  <rect x="10" y="8" width="210" height="26" rx="4" ry="4" fill="#f0f4f9" stroke="#b0c4de" stroke-width="1"/>
+  <text x="115" y="25" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#475569">Top Sales &amp; Top Link AM</text>
+  <!-- Outer Box -->
+  <rect x="10" y="42" width="700" height="315" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Header Bar -->
+  <rect x="10" y="42" width="700" height="42" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Lane Divider -->
+  <line x1="360" y1="42" x2="360" y2="357" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Lane Titles -->
+  <text x="180" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">User</text>
+  <text x="540" y="68" text-anchor="middle" font-size="13pt" font-weight="bold" fill="#24292f">BE</text>
+  <!-- Start Node -->
+  <circle cx="180" cy="115" r="22" fill="#e8dcfc" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="120" text-anchor="middle" font-size="10.5pt" font-weight="bold" fill="#222">Start</text>
+
+  <!-- Arrow Start -> User Box (Solid Down) -->
+  <line x1="180" y1="137" x2="180" y2="167" stroke="#222" stroke-width="1.5"/>
+  <polygon points="180,175 174,163 186,163" fill="#222"/>
+
+  <!-- User Action Box -->
+  <rect x="40" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Trên Dashboard SOP, cuộn đến khu vực</text>
+  <text x="180" y="218" text-anchor="middle" font-size="9.5pt" fill="#222"><tspan font-weight="bold">Bảng xếp hạng Top Sales &amp; Top Link</tspan></text>
+  <text x="180" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">(click icon xem link AM cá nhân hoặc mở Landing Page)</text>
+
+  <!-- Dashed Arrow: User -> BE (Across Lane) -->
+  <line x1="320" y1="212" x2="388" y2="212" stroke="#222" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="400,212 388,206 388,218" fill="#222"/>
+
+  <!-- BE Response Box -->
+  <rect x="400" y="175" width="280" height="74" rx="6" ry="6" fill="#f0f4f9" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="198" text-anchor="middle" font-size="9.5pt" fill="#222">Xếp hạng <tspan font-weight="bold">Top 10 Sales</tspan> theo Đơn Online</text>
+  <text x="540" y="218" text-anchor="middle" font-size="9.5pt" fill="#222">thành công giảm dần (vinh danh Top 1, 2, 3)</text>
+  <text x="540" y="238" text-anchor="middle" font-size="9.5pt" fill="#222">&amp; hiển thị <tspan font-weight="bold">Top 8 Link tiếp thị</tspan> theo Clicks thật</text>
+
+  <!-- Arrow BE Box -> END (Solid Down) -->
+  <line x1="540" y1="249" x2="540" y2="282" stroke="#222" stroke-width="1.5"/>
+  <polygon points="540,290 534,278 546,278" fill="#222"/>
+
+  <!-- END Node -->
+  <circle cx="540" cy="312" r="22" fill="#daf2e4" stroke="#222" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="10pt" font-weight="bold" fill="#222">END</text>
+</svg></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

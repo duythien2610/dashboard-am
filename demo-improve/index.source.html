@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPT SOP — Dashboard Báo Cáo Hiệu Suất Bán Hàng Affiliate Marketing</title>
+  <link rel="stylesheet" href="css/sop-dashboard.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. TOP SOP NAVBAR (ENTERPRISE BRAND BAR)
+       ========================================================================= -->
+  <header class="sop-navbar">
+    <div class="sop-nav-inner">
+      <div class="sop-brand-group">
+        <div class="fpt-logo-badge">FPT TELECOM</div>
+        <div class="sop-portal-name">SALES OPERATIONS PORTAL (SOP)</div>
+        <div class="sop-breadcrumb">
+          <span>Quản lý kinh doanh</span>
+          <span>/</span>
+          <span>Affiliate Marketing</span>
+          <span>/</span>
+          <span class="active">Dashboard Báo Cáo</span>
+        </div>
+      </div>
+
+      <div class="sop-user-profile">
+        <div class="user-details">
+          <span class="user-name">Nguyễn Hoàng Long</span>
+          <span class="user-role">Quản lý Kinh doanh · Vùng 1</span>
+        </div>
+        <div class="user-avatar">NL</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       MAIN DASHBOARD CONTAINER
+       ========================================================================= -->
+  <main class="dashboard-container">
+
+    <!-- PAGE TITLE & TIME SWITCHER -->
+    <section class="page-header-row">
+      <div class="page-title-box">
+        <h1>
+          Dashboard Báo Cáo Hiệu Suất Bán Hàng AM
+          <span class="system-badge" id="headerStatusBadge">Kỳ Báo Cáo Chuẩn</span>
+        </h1>
+        <div class="page-subtitle">
+          Theo dõi số liệu realtime, tỷ lệ tăng trưởng Like-for-like [upto] và đôn đốc đội ngũ kinh doanh — <span id="headerTitleRange" style="font-weight: 600; color: var(--slate-700);">Tháng 8/2026</span>
+        </div>
+      </div>
+
+      <div class="time-period-selector">
+        <button type="button" class="period-tab-btn active" data-period="t8">Tháng 8/2026</button>
+        <button type="button" class="period-tab-btn" data-period="t7">Tháng 7/2026</button>
+        <button type="button" class="period-tab-btn" data-period="cmp">So Sánh T7 vs T8</button>
+        <button type="button" class="period-tab-btn" data-period="year2026">Cả Năm 2026</button>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         2. BỘ LỌC ĐA CHIỀU NÂNG CAO (UC 1 — BR-AM-01 ĐẾN BR-AM-05)
+         ========================================================================= -->
+    <section class="filter-card">
+      <div class="filter-card-header">
+        <div class="filter-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+          Bộ Lọc Đa Chiều Nâng Cao
+        </div>
+        <div class="filter-rules-note">
+          Ràng buộc: Khoảng ngày tối đa 365 ngày · Từ ngày ≤ Đến ngày ≤ Hôm nay
+        </div>
+      </div>
+
+      <div class="filter-grid">
+        <!-- Date Range -->
+        <div class="filter-group">
+          <label class="filter-label">Khoảng Ngày (Từ - Đến)</label>
+          <div class="filter-input-wrapper">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <input type="date" id="inputFromDate" class="filter-date-input" value="2026-08-01" max="2026-08-31">
+            <span class="filter-date-sep">→</span>
+            <input type="date" id="inputToDate" class="filter-date-input" value="2026-08-31" max="2026-08-31">
+          </div>
+          <div id="dateFilterError" style="display: none; color: #dc2626; font-size: 11px; font-weight: 600; padding-top: 2px;"></div>
+        </div>
+
+        <!-- Region Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Vùng Kinh Doanh</label>
+          <select id="regionSelect" class="filter-select">
+            <option value="all">Toàn quốc</option>
+          </select>
+        </div>
+
+        <!-- Branch Filter (Cascade) -->
+        <div class="filter-group">
+          <label class="filter-label">Chi Nhánh</label>
+          <select id="branchSelect" class="filter-select">
+            <option value="all">Tất cả Chi nhánh</option>
+          </select>
+        </div>
+
+        <!-- Segment By: Ngày, Tuần, Tháng, Năm (As Requested!) -->
+        <div class="filter-group">
+          <label class="filter-label">Phân Đoạn Hiển Thị</label>
+          <div class="segment-pill-group">
+            <button type="button" class="segment-btn active" data-segment="day">Theo Ngày</button>
+            <button type="button" class="segment-btn" data-segment="week">Theo Tuần</button>
+            <button type="button" class="segment-btn" data-segment="month">Theo Tháng</button>
+            <button type="button" class="segment-btn" data-segment="year">Theo Năm</button>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="filter-actions">
+          <button type="button" id="btnApplyFilter" class="btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Áp Dụng
+          </button>
+          <button type="button" id="btnResetFilter" class="btn-secondary" title="Đặt lại bộ lọc về mặc định">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+            Đặt Lại
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Filter Chips -->
+      <div class="quick-filter-row">
+        <span class="quick-filter-label">Chọn Nhanh:</span>
+        <button type="button" class="quick-btn" data-quick="today">Hôm nay (31/08)</button>
+        <button type="button" class="quick-btn" data-quick="7d">7 ngày qua</button>
+        <button type="button" class="quick-btn" data-quick="30d">30 ngày qua</button>
+        <button type="button" class="quick-btn active" data-quick="month">Tháng này (T8)</button>
+        <button type="button" class="quick-btn" data-quick="prev_month">Tháng trước (T7)</button>
+        <button type="button" class="quick-btn" data-quick="year">Cả Năm 2026</button>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         3. 5 CORE KPI CARDS REALTIME + LIKE-FOR-LIKE (UC 1)
+         ========================================================================= -->
+    <section class="kpi-grid">
+      <!-- Card 1: Lượt Truy Cập Thật -->
+      <div class="kpi-card">
+        <div class="kpi-card-accent kpi-accent-orange"></div>
+        <div class="kpi-card-header">
+          <span class="kpi-title">Lượt Truy Cập Thật</span>
+          <div class="kpi-icon-wrap icon-wrap-orange">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiClicksVal">121,507</span>
+          <span class="kpi-growth-badge growth-up" id="kpiClicksBadge">+3.6% [upto]</span>
+        </div>
+        <div class="kpi-meta-text">
+          <span id="kpiClicksBot">Loại trừ 205k bot tự động</span>
+          <span class="kpi-pill-note">Realtime</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Khách Hàng Tiềm Năng (Leads) -->
+      <div class="kpi-card">
+        <div class="kpi-card-accent kpi-accent-purple"></div>
+        <div class="kpi-card-header">
+          <span class="kpi-title">Khách Hàng Tiềm Năng (Leads)</span>
+          <div class="kpi-icon-wrap icon-wrap-purple">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiLeadVal">3,226</span>
+          <span class="kpi-growth-badge growth-down" id="kpiLeadBadge">-9.3% [upto]</span>
+        </div>
+        <div class="kpi-meta-text">
+          <span style="font-weight: 600; color: var(--primary-dark);">Không thu hồi · Độc lập theo link</span>
+          <span class="kpi-pill-note">KHTN</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Tổng Đơn Hàng Online -->
+      <div class="kpi-card">
+        <div class="kpi-card-accent kpi-accent-green"></div>
+        <div class="kpi-card-header">
+          <span class="kpi-title">Tổng Đơn Hàng Online</span>
+          <div class="kpi-icon-wrap icon-wrap-green">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiDonVal">5,449</span>
+          <span class="kpi-growth-badge growth-up" id="kpiDonBadge">+9.9% [upto]</span>
+        </div>
+        <div class="kpi-breakdown-box" id="kpiDonBreakdown">
+          <!-- Populated by JS: Hoàn tất, Đang xử lý, Hủy -->
+        </div>
+      </div>
+
+      <!-- Card 4: Tỷ Lệ Chuyển Đổi (CR) -->
+      <div class="kpi-card">
+        <div class="kpi-card-accent kpi-accent-blue"></div>
+        <div class="kpi-card-header">
+          <span class="kpi-title">Tỷ Lệ Chuyển Đổi (CR)</span>
+          <div class="kpi-icon-wrap icon-wrap-blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiCRVal">8.9%</span>
+          <span class="kpi-growth-badge growth-up" id="kpiCRBadge">+1.0 pp</span>
+        </div>
+        <div class="kpi-meta-text">
+          <span>Đơn hàng / Unique Users</span>
+          <span class="kpi-pill-note">Hiệu quả</span>
+        </div>
+      </div>
+
+      <!-- Card 5: Tỷ Lệ Sales Phủ AM (Tính Năng Mới) -->
+      <div class="kpi-card" style="cursor: pointer;" onclick="document.getElementById('salesSectionAnchor').scrollIntoView({behavior: 'smooth'})">
+        <div class="kpi-card-accent kpi-accent-indigo"></div>
+        <div class="kpi-card-header">
+          <span class="kpi-title">Tỷ Lệ Sales Phủ AM</span>
+          <div class="kpi-icon-wrap icon-wrap-indigo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpiSalesCoverageVal">56.3%</span>
+          <span class="kpi-growth-badge growth-neutral">Active</span>
+        </div>
+        <div class="kpi-meta-text">
+          <span id="kpiSalesCountNote">18 / 32 Sales đã dùng AM</span>
+          <span class="kpi-pill-note" style="color: var(--secondary-dark);">Xem chi tiết ↓</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         4. BIỂU ĐỒ XU HƯỚNG & CƠ CẤU (UC 2)
+         ========================================================================= -->
+    <section class="charts-grid-main">
+      <!-- Main Trend Line Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Xu Hướng Lượt Truy Cập &amp; Unique Users</h3>
+            <div class="chart-sub">Biểu đồ đường kép theo chu kỳ lọc đã chọn</div>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="trendChartCanvas"></canvas>
+        </div>
+        <div class="chart-card-footer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Đỉnh điểm traffic ngày 19/08 đạt 8,387 lượt truy cập thật (chiến dịch Ngoại Hạng Anh khởi tranh).
+        </div>
+      </div>
+
+      <!-- Campaign Donut Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Phân Bổ Theo Chiến Dịch</h3>
+            <div class="chart-sub">Tỷ trọng lượt truy cập theo campaign</div>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="campaignChartCanvas"></canvas>
+        </div>
+        <div class="chart-card-footer">
+          Trang chủ FPT và Ngoại Hạng Anh chiếm hơn 74% tổng lượng traffic.
+        </div>
+      </div>
+    </section>
+
+    <!-- Sub Charts: Devices, Browsers & Regions -->
+    <section class="charts-sub-grid">
+      <!-- Devices Pie -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Cơ Cấu Thiết Bị</h3>
+            <div class="chart-sub">Mobile vs Desktop</div>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap" style="height: 200px;">
+          <canvas id="deviceChartCanvas"></canvas>
+        </div>
+        <div class="chart-card-footer">
+          Thiết bị di động chiếm ưu thế tuyệt đối (65.2%).
+        </div>
+      </div>
+
+      <!-- Browsers Donut (New Feature) -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Trình Duyệt Phổ Biến</h3>
+            <div class="chart-sub">Tỷ trọng trình duyệt truy cập link AM</div>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap" style="height: 200px;">
+          <canvas id="browserChartCanvas"></canvas>
+        </div>
+        <div class="chart-card-footer">
+          Chrome &amp; Safari chiếm 82.4% tổng lượng truy cập tiếp thị.
+        </div>
+      </div>
+
+      <!-- Regions Bar Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Hiệu Suất Theo Chi Nhánh / Vùng</h3>
+            <div class="chart-sub">Lượt truy cập thật và Đơn hàng thành công</div>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap" style="height: 200px;">
+          <canvas id="regionChartCanvas"></canvas>
+        </div>
+        <div class="chart-card-footer">
+          Hải Dương (HDG) dẫn đầu traffic; Hồ Chí Minh (HCM) dẫn đầu chốt đơn.
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         5. BÁO CÁO GOOGLE ANALYTICS 4 (GA4 amtracking — UC 2)
+         ========================================================================= -->
+    <section class="section-wrapper">
+      <div class="section-header-row">
+        <div class="section-title-wrap">
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Báo Cáo Google Analytics 4 (Session Source: amtracking)
+          </h2>
+          <div class="section-desc">Đối soát dữ liệu độc lập giữa hệ thống AM nội bộ và GA4</div>
+        </div>
+      </div>
+
+      <!-- 4 GA4 KPI Cards -->
+      <div class="ga4-kpi-grid" id="ga4KpiGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Top 10 GA4 Landing Pages Table -->
+      <div style="font-size: 13px; font-weight: 700; color: var(--slate-800); margin-top: 6px;">
+        Top 10 Trang Đích Có Hiệu Suất Cao Nhất (GA4 Page Views)
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">Hạng</th>
+              <th>Trang Đích (Landing Page URL)</th>
+              <th class="td-right">Lượt Xem (Views)</th>
+              <th class="td-right">Phiên (Sessions)</th>
+              <th class="td-right">Users Tương Tác</th>
+              <th class="td-right">Tỷ Lệ Thoát</th>
+              <th class="td-right" style="width: 100px;">Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody id="ga4PagesTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         6. PHÂN HỆ QUẢN LÝ & THEO DÕI SALES SỬ DỤNG AM (UC 3 — TÍNH NĂNG MỚI)
+         ========================================================================= -->
+    <section class="section-wrapper" id="salesSectionAnchor">
+      <div class="section-header-row">
+        <div class="section-title-wrap">
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            Quản Lý &amp; Theo Dõi Sales Sử Dụng Affiliate Marketing
+          </h2>
+          <div class="section-desc">Phân định nhân viên Đã dùng / Chưa dùng để Trưởng phòng và Giám đốc Chi nhánh kịp thời chỉ đạo, đôn đốc</div>
+        </div>
+
+        <button type="button" id="btnExportSales" class="btn-primary" style="background: var(--success);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Xuất Excel Danh Sách
+        </button>
+      </div>
+
+      <!-- Sales Summary Stats -->
+      <div class="sales-summary-cards">
+        <div class="sales-stat-box">
+          <span class="sales-stat-title">Tổng Số Sales Trong Danh Bạ</span>
+          <span class="sales-stat-val" id="salesStatTotal">32</span>
+        </div>
+        <div class="sales-stat-box" style="border-left: 3px solid var(--success);">
+          <span class="sales-stat-title">Sales Đã Sử Dụng AM (Clicks &gt; 0)</span>
+          <span class="sales-stat-val" style="color: var(--success);" id="salesStatActive">18</span>
+        </div>
+        <div class="sales-stat-box" style="border-left: 3px solid var(--warning);">
+          <span class="sales-stat-title">Sales Chưa Dùng AM (Clicks = 0)</span>
+          <span class="sales-stat-val" style="color: var(--warning);" id="salesStatInactive">14</span>
+        </div>
+        <div class="sales-stat-box" style="border-left: 3px solid var(--secondary);">
+          <span class="sales-stat-title">Tỷ Lệ Phủ AM Toàn Đơn Vị</span>
+          <span class="sales-stat-val" style="color: var(--secondary-dark);" id="salesStatRate">56.3%</span>
+        </div>
+      </div>
+
+      <!-- Sales Toolbar Controls -->
+      <div class="sales-toolbar-row">
+        <!-- 3 Filter Tabs -->
+        <div class="sales-tabs-group">
+          <button type="button" class="sales-tab-btn active" data-sales-tab="all">
+            Tất Cả Sales
+            <span class="sales-tab-badge" id="tabBadgeAll">32</span>
+          </button>
+          <button type="button" class="sales-tab-btn" data-sales-tab="active">
+            Đã Sử Dụng AM
+            <span class="sales-tab-badge" id="tabBadgeActive">18</span>
+          </button>
+          <button type="button" class="sales-tab-btn" data-sales-tab="inactive">
+            Chưa Dùng AM (Cần Đôn Đốc)
+            <span class="sales-tab-badge" id="tabBadgeInactive">14</span>
+          </button>
+        </div>
+
+        <!-- Search Box -->
+        <div class="sales-search-box">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--slate-400); margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="salesSearchInput" placeholder="Tìm theo tên, mã NV (vietbq...), chi nhánh...">
+        </div>
+      </div>
+
+      <!-- 8-Column Standard Sales Table -->
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 40px;">STT</th>
+              <th>Mã Sales</th>
+              <th>Họ và Tên Nhân Viên</th>
+              <th>Đơn Vị / Chi Nhánh</th>
+              <th>Trạng Thái AM</th>
+              <th class="td-right">Lượt Clicks</th>
+              <th class="td-right">Leads (KHTN)</th>
+              <th class="td-right">Đơn Online Thành Công</th>
+              <th class="td-right" style="width: 120px;">Hành Động</th>
+            </tr>
+          </thead>
+          <tbody id="salesTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         7. BẢNG XẾP HẠNG TOP SALES & TOP LINK AM (UC 4)
+         ========================================================================= -->
+    <section class="charts-grid-main">
+      <!-- Top 10 Sales (Priority: Đơn Online hoàn tất giảm dần) -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Bảng Xếp Hạng Top 10 Sales Xuất Sắc Nhất</h3>
+            <div class="chart-sub">Tiêu chí ưu tiên: Đơn Online hoàn tất giảm dần (BR-AM-20)</div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 45px;">Hạng</th>
+                <th>Nhân Viên</th>
+                <th>Đơn Vị</th>
+                <th class="td-right">Đơn Online</th>
+                <th class="td-right">Leads</th>
+                <th class="td-right">Clicks</th>
+                <th class="td-right">CR %</th>
+              </tr>
+            </thead>
+            <tbody id="topSalesTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Top 8 Marketing Links -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Top Link Tiếp Thị Hiệu Quả Nhất</h3>
+            <div class="chart-sub">Xếp theo lượt truy cập thật và số đơn phát sinh</div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 45px;">Hạng</th>
+                <th>Chiến Dịch</th>
+                <th>Sales Phụ Trách</th>
+                <th class="td-right">Clicks</th>
+                <th class="td-right">Users</th>
+                <th class="td-right">Leads</th>
+                <th class="td-right">Đơn</th>
+              </tr>
+            </thead>
+            <tbody id="topContractsTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="sop-footer">
+    Hệ thống Quản lý Bán hàng FPT Telecom (SOP) — Phân hệ Affiliate Marketing Dashboard © 2026. Chuẩn Enterprise FPT IS / FPT Telecom.
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/chart.min.js"></script>
+  <script src="js/fpt-data.js"></script>
+  <script src="js/sop-app.js"></script>
+
+</body>
+</html>

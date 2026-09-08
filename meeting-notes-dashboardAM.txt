@@ -1,0 +1,28 @@
+- Thiết kế trang dashboard xem chỉ số bán của AM tích hợp vào SOP
+- Dữ liệu do anh Trực tự làm và xây, có link/tool upload crawl về
+- Lấy dữ liệu theo mốc ngày chốt (hiện tại là mốc 07/09)
+- Lọc thời gian: theo ngày, theo tuần, theo tháng, theo năm
+- Lọc khu vực: theo Vùng, theo Chi nhánh
+- So sánh tăng/giảm với kỳ trước (tháng trước, tuần trước)
+- Vấn đề tuần hiện tại chưa đủ 7 ngày thì so sánh với tuần trước như thế nào? (Này câu hỏi em tự đặt ra)
+Tính năng mới — Số lượng Sales sử dụng AM trong tháng:
+- Đếm số lượng nhân viên Sales có sử dụng link AM trong tháng
+- Điều kiện tính đã sử dụng: Link AM có phát sinh truy cập thật > 0 (khách hàng chỉ cần click vào link là tính)
+- Click vào xem được danh sách chi tiết: Sales nào đã dùng AM, Sales nào chưa dùng
+Quy tắc tính Click và Đơn hàng:
+- Lượt truy cập thật: User có hành động thực tế (đã lọc bot)
+- Cùng 1 user click nhiều lần trong 1 ngày (sáng, trưa, chiều) vẫn chỉ tính là 1 lần click trong ngày đó
+- Tổng đơn ghi nhận: Toàn bộ đơn hàng đang có trạng thái trên hệ thống
+- Tạo lead của Sales A nhưng sang Sales B tính thì vẫn ghi nhận click trước đó
+- Khách bị thu hồi lưu vào database vẫn tính là 1 click
+- Chưa có cơ chế để thu hồi lead về (chưa rõ)
+- Đếm ngày thu hồi link lại, 1 tháng 1000 ông dùng link AM thì xử lý ra sao (chưa rõ)
+- Khách đã lên đơn rồi nhưng tổng số lead lại không giảm, cơ chế lead này như thế nào (chưa rõ — cần hỏi lại anh Phúc ISC)
+Thay đổi trên giao diện Dashboard
+- Bỏ phần "Đánh giá tổng quan" (khối text nhận định)
+- Tích hợp báo cáo Link AM cá nhân (có sẵn chỉ cần tích hợp vào)
+- Giữ lại các khối: Thiết bị, trình duyệt, vùng
+- Top Sales - Leads: Xếp Sales có nhiều đơn online thi công thành công nhất lên Top 1
+- Tỷ lệ chuyển đổi: Thể hiện luồng từ Lượt truy cập -> Lead -> Đơn hàng
+- Top 8 lượt truy cập: Tinh gọn bớt một số cột
+- GA4: Active users (người dùng hoạt động trên web) và Top 10 truy cập trang đích (landing page)

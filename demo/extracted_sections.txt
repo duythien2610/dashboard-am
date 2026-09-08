@@ -1,0 +1,19 @@
+div: Xu hướng & Phân tích Campaign
+div: Thiết bị, Trình duyệt & Vùng
+div: Hiệu Suất Theo VùngLượt truy cập theo chi nhánh · "Khác" = sale chưa có mã chi nhánh{{ v.name }}{{ v.meta }}{{ insRegion }}
+div: Hiệu Suất Theo Vùng
+div: Top 10 Sale — Xếp Hạng Theo Đơn Hàng
+div: Top 8 Theo Lượt Truy Cập
+div: Google Analytics 4 — Session Source: amtracking
+div: Tổng Quan GA4Số liệu tổng từ GA4{{ g.label }}{{ g.val }}{{ g.sub }}
+div: Tổng Quan GA4
+div: Số liệu tổng từ GA4
+div: Top 10 Trang Đích — Lượt Xem (Views){{ ga4Sub }}{{ insGa4 }}
+div: Top 10 Trang Đích — Lượt Xem (Views)
+div: Xu hướng theo ngày — T7 vs T8
+div: Vùng — lượt truy cậpThanh trên: T7 · Thanh dưới: T8{{ c.name }}{{ c.pct }}{{ c.v7 }}{{ c.v8 }}
+div: Vùng — lượt truy cập
+div: Tên SaleVùngĐơn T7Đơn T8Chênh lệchGhi nhận{{ s.name }}{{ s.vung }}{{ s.t7 }}{{ s.t8 }}{{ s.delta }}{{ s.note }}
+div: Chất lượng đơn hàng{{ s.name }}{{ s.meta }}GA4 — T7 vs T8{{ g.label }}{{ g.a }}→{{ g.b }}{{ g.pct }}
+div: GA4 — T7 vs T8{{ g.label }}{{ g.a }}→{{ g.b }}{{ g.pct }}
+div: GA4 — T7 vs T8

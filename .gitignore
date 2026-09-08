@@ -1,0 +1,11 @@
+# Temporary files
+__pycache__/
+*.pyc
+*.pyo
+temp_script_*
+scratch_*
+excel_cells_dump.txt
+long_cells.txt
+verify_summary.txt
+.DS_Store
+Thumbs.db

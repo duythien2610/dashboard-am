@@ -1,0 +1,9 @@
+=== HEADINGS ===
+H1: Dashboard Báo Cáo Tổng Quan Hiệu Suất — {{ headTitle }}
+
+=== BUTTONS & NAVS ===
+button: id=None class=None placeholder=None text={{ t.label }}
+
+=== CARDS / SECTIONS ===
+
+=== TABLES & HEADERS ===
