@@ -1414,6 +1414,37 @@ body {
   color: #059669 !important;
 }
 
+/* Executive action layer — keeps the demo focused on decisions, not raw data */
+.executive-action-strip {
+  background: #0f172a;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-md);
+  color: #fff;
+}
+.action-strip-heading { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.action-strip-heading h2 { font-size: 15px; margin: 0; }
+.action-strip-kicker { color: #93c5fd; font-size: 10px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; }
+.action-strip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.action-insight { width: 100%; border: 1px solid rgba(255,255,255,.12); border-radius: 8px; background: rgba(255,255,255,.06); color: #fff; padding: 12px; display: flex; align-items: center; gap: 10px; text-align: left; font: inherit; }
+button.action-insight { cursor: pointer; transition: transform .18s ease, background .18s ease; }
+button.action-insight:hover, button.action-insight:focus-visible { transform: translateY(-2px); background: rgba(255,255,255,.12); outline: 2px solid #93c5fd; outline-offset: 2px; }
+.action-insight-icon { width: 24px; height: 24px; flex: 0 0 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 13px; font-weight: 800; }
+.action-insight strong, .action-insight small { display: block; }
+.action-insight strong { font-size: 12.5px; line-height: 1.3; }
+.action-insight small { margin-top: 3px; font-size: 11px; line-height: 1.35; color: #cbd5e1; }
+.action-insight-danger .action-insight-icon { background: #7f1d1d; color: #fecaca; }
+.action-insight-warning .action-insight-icon { background: #78350f; color: #fde68a; }
+.action-insight-success .action-insight-icon { background: #064e3b; color: #a7f3d0; }
+.action-arrow { margin-left: auto; color: #93c5fd; font-size: 18px; }
+.sales-sort-control { display: flex; align-items: center; gap: 5px; color: var(--slate-500); font-size: 11.5px; }
+.sales-sort-btn { border: 1px solid var(--slate-200); border-radius: 999px; background: var(--white); color: var(--slate-600); cursor: pointer; font: inherit; font-weight: 600; padding: 5px 9px; transition: all .18s ease; }
+.sales-sort-btn:hover, .sales-sort-btn:focus-visible { border-color: var(--secondary); color: var(--secondary-dark); outline: none; }
+.sales-sort-btn.active { background: var(--secondary); border-color: var(--secondary); color: #fff; }
+.demo-toast { position: fixed; z-index: 10000; right: 24px; bottom: 24px; max-width: 360px; padding: 12px 16px; border-radius: 8px; background: #0f172a; color: #fff; box-shadow: 0 12px 30px rgba(15,23,42,.25); font-size: 13px; transform: translateY(16px); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.demo-toast.show { transform: translateY(0); opacity: 1; }
+@media (max-width: 900px) { .action-strip-grid { grid-template-columns: 1fr; } .sales-sort-control { width: 100%; flex-wrap: wrap; } }
+
 
 /* ==========================================================================
 
@@ -1458,10 +1489,10 @@ body {
       <div class="page-title-box">
         <h1>
           Dashboard Báo Cáo Hiệu Suất Bán Hàng AM
-          <span class="system-badge" id="headerStatusBadge">Kỳ Báo Cáo Chuẩn</span>
+          <span class="system-badge" id="headerStatusBadge">Dữ Liệu Demo</span>
         </h1>
         <div class="page-subtitle">
-          Theo dõi số liệu realtime, tỷ lệ tăng trưởng Like-for-like [upto] và đôn đốc đội ngũ kinh doanh — <span id="headerTitleRange" style="font-weight: 600; color: var(--slate-700);">Tháng 8/2026</span>
+          Bản trình diễn quản trị hiệu suất Affiliate Marketing — <span id="headerTitleRange" style="font-weight: 600; color: var(--slate-700);">Tháng 8/2026</span>
         </div>
       </div>
 
@@ -1571,7 +1602,7 @@ body {
         </div>
         <div class="kpi-meta-text">
           <span id="kpiClicksBot">Loại trừ 205k bot tự động</span>
-          <span class="kpi-pill-note">Realtime</span>
+          <span class="kpi-pill-note">Demo</span>
         </div>
       </div>
 
@@ -1657,13 +1688,13 @@ body {
     <section class="executive-funnel-section">
       <div class="executive-funnel-header">
         <div>
-          <div class="executive-badge">Góc Nhìn Điều Hành · Ban Giám Đốc</div>
+          <div class="executive-badge">Góc Nhìn Điều Hành · Bản Demo</div>
           <h3 class="executive-title">Phễu Chuyển Đổi Toàn Trình &amp; Doanh Thu Ước Tính Kênh AM</h3>
           <div class="executive-subtitle">Đo lường hành trình chuyển đổi khép kín từ Clicks sạch, Leads, Đơn hàng đến Doanh thu tiền tươi và vận tốc kế hoạch</div>
         </div>
         <div>
           <div class="sync-status-pill">
-            <span class="status-dot"></span> Pipeline Data: <strong id="funnelSyncTime">Realtime (09:45)</strong>
+            <span class="status-dot"></span> Dữ liệu mô phỏng: <strong id="funnelSyncTime">Cập nhật theo kỳ chọn</strong>
           </div>
         </div>
       </div>
@@ -1806,6 +1837,28 @@ body {
               <span id="execRunRateNote">Vận tốc hiện tại: ~175 đơn/ngày · Dự kiến hoàn thành 98.1% chỉ tiêu kỳ</span>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="executive-action-strip" aria-labelledby="actionStripTitle">
+      <div class="action-strip-heading">
+        <span class="action-strip-kicker">Ưu tiên chỉ đạo</span>
+        <h2 id="actionStripTitle">3 điểm cần hành động trong kỳ</h2>
+      </div>
+      <div class="action-strip-grid">
+        <button type="button" class="action-insight action-insight-danger" data-sales-focus="inactive">
+          <span class="action-insight-icon">!</span>
+          <span><strong id="inactiveSalesInsight">14 Sales chưa kích hoạt AM</strong><small>Chuyển sang danh sách cần đôn đốc</small></span>
+          <span class="action-arrow">→</span>
+        </button>
+        <div class="action-insight action-insight-warning">
+          <span class="action-insight-icon">↗</span>
+          <span><strong id="forecastInsight">Dự phóng còn thiếu 150 đơn</strong><small>Cần tăng vận tốc chốt đơn trong các ngày còn lại</small></span>
+        </div>
+        <div class="action-insight action-insight-success">
+          <span class="action-insight-icon">✓</span>
+          <span><strong id="coverageInsight">56.3% Sales đã có hoạt động AM</strong><small>Ưu tiên nhân rộng nhóm có kết quả tốt</small></span>
         </div>
       </div>
     </section>
@@ -1954,12 +2007,12 @@ body {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
             Quản Lý &amp; Theo Dõi Sales Sử Dụng Affiliate Marketing
           </h2>
-          <div class="section-desc">Phân định nhân viên Đã dùng / Chưa dùng để Trưởng phòng và Giám đốc Chi nhánh kịp thời chỉ đạo, đôn đốc</div>
+          <div class="section-desc">Mặc định ưu tiên Đơn Online Thành Công; chuyển nhanh sang Doanh thu hoặc Clicks khi cần drill-down.</div>
         </div>
 
         <button type="button" id="btnExportSales" class="btn-primary" style="background: var(--success);">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          Xuất Excel Danh Sách
+          Xuất CSV Danh Sách
         </button>
       </div>
 
@@ -1999,6 +2052,13 @@ body {
             Chưa Dùng AM (Cần Đôn Đốc)
             <span class="sales-tab-badge" id="tabBadgeInactive">14</span>
           </button>
+        </div>
+
+        <div class="sales-sort-control" role="group" aria-label="Sắp xếp danh sách Sales">
+          <span>Sắp xếp theo</span>
+          <button type="button" class="sales-sort-btn active" data-sales-sort="don">Đơn thành công</button>
+          <button type="button" class="sales-sort-btn" data-sales-sort="revenue">Doanh thu</button>
+          <button type="button" class="sales-sort-btn" data-sales-sort="clicks">Clicks</button>
         </div>
 
         <!-- Search Box -->
@@ -4166,9 +4226,8 @@ window.FPT_REGIONS_BRANCHES = {
     toDate: '2026-08-31',
     salesTab: 'all', // 'all', 'active', 'inactive'
     salesSearch: '',
-    salesSortCol: 'clicks', // 'clicks', 'lead', 'don', 'name'
+    salesSortCol: 'don', // Default executive lens: completed online orders
     salesSortAsc: false,
-    salesSortCol: 'clicks', // 'clicks', 'lead', 'don', 'name'
     salesSortAsc: false,
     charts: {}
   };
@@ -4342,6 +4401,25 @@ window.FPT_REGIONS_BRANCHES = {
       });
     });
 
+    document.querySelectorAll('[data-sales-sort]').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const sortCol = this.dataset.salesSort;
+        state.salesSortAsc = state.salesSortCol === sortCol ? !state.salesSortAsc : false;
+        state.salesSortCol = sortCol;
+        document.querySelectorAll('[data-sales-sort]').forEach(b => b.classList.toggle('active', b === this));
+        renderSalesTable();
+      });
+    });
+
+    document.querySelectorAll('[data-sales-focus="inactive"]').forEach(btn => {
+      btn.addEventListener('click', function () {
+        state.salesTab = 'inactive';
+        document.querySelectorAll('[data-sales-tab]').forEach(b => b.classList.toggle('active', b.dataset.salesTab === 'inactive'));
+        document.getElementById('salesSectionAnchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        renderSalesTable();
+      });
+    });
+
     // Sales Search
     const salesSearchInput = document.getElementById('salesSearchInput');
     if (salesSearchInput) {
@@ -4451,6 +4529,8 @@ window.FPT_REGIONS_BRANCHES = {
 
     renderHeaderInfo(curData);
     renderKPICards(curData, prevData);
+    renderExecutiveFunnel(curData, prevData);
+    renderExecutiveInsights(curData);
     updateCharts();
     renderGA4Section(curData);
     renderSalesTable();
@@ -4464,7 +4544,7 @@ window.FPT_REGIONS_BRANCHES = {
     }
     const elBadge = document.getElementById('headerStatusBadge');
     if (elBadge) {
-      elBadge.textContent = state.period === 'year2026' ? 'Toàn Hệ Thống 2026' : (state.period === 'cmp' ? 'Đối Soát Hai Kỳ' : 'Kỳ Báo Cáo Chuẩn');
+      elBadge.textContent = state.period === 'year2026' ? 'Demo Toàn Hệ Thống 2026' : (state.period === 'cmp' ? 'Demo So Sánh Hai Kỳ' : 'Dữ Liệu Demo');
     }
   }
 
@@ -4508,13 +4588,13 @@ window.FPT_REGIONS_BRANCHES = {
     if (elRateDon) elRateDon.textContent = crTotal + '% trên Clicks';
     if (elRateComplete) elRateComplete.textContent = '68.5%';
 
-    // Thanh bar độ rộng tương quan trực quan
+    // Thanh bar phản ánh tỷ trọng thực tế theo clicks, không dùng tỷ lệ minh họa cố định.
     const barLeads = document.getElementById('funnelBarLeads');
     const barDon = document.getElementById('funnelBarDon');
     const barComplete = document.getElementById('funnelBarComplete');
-    if (barLeads) barLeads.style.width = '32%';
-    if (barDon) barDon.style.width = '52%';
-    if (barComplete) barComplete.style.width = '38%';
+    if (barLeads) barLeads.style.width = Math.max(2, leads / Math.max(clicks, 1) * 100) + '%';
+    if (barDon) barDon.style.width = Math.max(2, don / Math.max(clicks, 1) * 100) + '%';
+    if (barComplete) barComplete.style.width = Math.max(2, completeOrders / Math.max(clicks, 1) * 100) + '%';
 
     // 2. Cập nhật Doanh thu ước tính & Tiến độ (Financial Metrics)
     const elRev = document.getElementById('execEstRevenue');
@@ -4566,6 +4646,21 @@ window.FPT_REGIONS_BRANCHES = {
       const pctForecast = target ? f1((runRateForecast / target) * 100) : 100;
       elRunRateNote.textContent = `Vận tốc hiện tại: ~${paceDaily} đơn/ngày · Dự kiến hoàn thành ${pctForecast}% chỉ tiêu kỳ`;
     }
+  }
+
+  function renderExecutiveInsights(cur) {
+    const roster = window.FPT_SALES_ROSTER || [];
+    const inactive = roster.filter(s => s.status === 'inactive').length;
+    const active = roster.length - inactive;
+    const coverage = roster.length ? f1((active / roster.length) * 100) : '0.0';
+    const target = state.period === 'year2026' ? 45000 : (state.period === 't7' ? 7500 : 8000);
+    const forecast = state.period === 'year2026' ? 44200 : (state.period === 't7' ? 4960 : 7850);
+    const gap = Math.max(0, target - forecast);
+    const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+
+    setText('inactiveSalesInsight', `${inactive} Sales chưa kích hoạt AM`);
+    setText('coverageInsight', `${coverage}% Sales đã có hoạt động AM`);
+    setText('forecastInsight', gap ? `Dự phóng còn thiếu ${n(gap)} đơn` : 'Dự phóng đạt hoặc vượt kế hoạch');
   }
 
   function renderKPICards(cur, prev) {
@@ -5013,7 +5108,7 @@ window.FPT_REGIONS_BRANCHES = {
             <button class="btn-secondary" style="height: 28px; padding: 0 8px; font-size: 11px;" onclick="window.openSalesModal('${s.code}')">Xem Link</button>
             ${isActive 
               ? `<button class="btn-secondary" style="height: 28px; padding: 0 8px; font-size: 11px; margin-left: 4px;" onclick="copyLink('${s.link}', this)">Chép link</button>`
-              : `<button class="btn-primary" style="height: 28px; padding: 0 8px; font-size: 11px; background: #ea580c; margin-left: 4px;" onclick="alert('Đã gửi thông báo nhắc nhở đôn đốc tới nhân viên: ${s.name} (${s.code})')">Đôn đốc</button>`
+              : `<button class="btn-primary" style="height: 28px; padding: 0 8px; font-size: 11px; background: #ea580c; margin-left: 4px;" onclick="window.showDemoToast('Đã tạo nhắc nhở demo cho ${s.name} (${s.code}).')">Đôn đốc</button>`
             }
           </td>
         </tr>
@@ -5086,6 +5181,41 @@ window.FPT_REGIONS_BRANCHES = {
   // =========================================================================
   // EXPORT EXCEL / CSV LOGIC (UC 3)
   // =========================================================================
+  window.sortSalesBy = function (column) {
+    state.salesSortAsc = state.salesSortCol === column ? !state.salesSortAsc : false;
+    state.salesSortCol = column;
+    document.querySelectorAll('[data-sales-sort]').forEach(b => b.classList.toggle('active', b.dataset.salesSort === column));
+    renderSalesTable();
+  };
+
+  window.showDemoToast = function (message) {
+    let toast = document.getElementById('demoToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'demoToast';
+      toast.className = 'demo-toast';
+      toast.setAttribute('role', 'status');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    window.clearTimeout(window.__demoToastTimer);
+    window.__demoToastTimer = window.setTimeout(() => toast.classList.remove('show'), 3000);
+  };
+
+  window.openSalesModal = function (code) {
+    const sales = (window.FPT_SALES_ROSTER || []).find(s => s.code === code);
+    if (!sales) return;
+    document.getElementById('modalSalesTitle').textContent = `Liên kết AM — ${sales.name}`;
+    document.getElementById('modalSalesMeta').textContent = `${sales.code} · ${sales.branch} · Hoạt động gần nhất: ${sales.last_active}`;
+    document.getElementById('modalSalesLinksBody').innerHTML = `<tr><td>1</td><td>Link AM cá nhân</td><td class="td-mono">${sales.link}</td><td>${sales.last_active}</td><td class="td-right">${n(sales.clicks)}</td><td class="td-right">${n(sales.lead)}</td><td class="td-right">${n(sales.don)}</td><td class="td-right">${formatMoney((sales.don || 0) * 650000)}</td><td class="td-center"><button class="btn-secondary" onclick="window.copyLink('${sales.link}', this)">Chép link</button></td></tr>`;
+    document.getElementById('salesLinkModal').style.display = 'flex';
+  };
+
+  window.closeSalesModal = function () {
+    document.getElementById('salesLinkModal').style.display = 'none';
+  };
+
   function exportSalesCSV() {
     const roster = window.FPT_SALES_ROSTER || [];
     if (roster.length === 0) return;
