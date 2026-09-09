@@ -1107,302 +1107,48 @@ body {
 }
 
 
-/* ==========================================================================
-   EXECUTIVE FUNNEL & FINANCIAL OVERVIEW (NHÓM 1 - BAN GIÁM ĐỐC)
-   ========================================================================== */
-.executive-funnel-section {
-  background: var(--white);
-  border: 1px solid var(--slate-200);
-  border-radius: var(--radius-md);
-  padding: 20px 24px;
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 24px;
-  position: relative;
-  overflow: hidden;
-}
 
-.executive-funnel-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3.5px;
-  background: linear-gradient(90deg, #1d64d8 0%, #059669 50%, #f97316 100%);
-}
-
-.executive-funnel-header {
+/* Sales Region Filter & Sortable Header Styles */
+.sales-region-filter {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 18px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--slate-100);
-}
-
-.executive-badge {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--secondary-dark);
-  background: var(--secondary-light);
-  padding: 3px 8px;
-  border-radius: 4px;
-  margin-bottom: 6px;
+  gap: 8px;
 }
-
-.executive-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--slate-900);
-  margin-bottom: 2px;
-}
-
-.executive-subtitle {
+.sales-region-filter select {
+  height: 36px;
+  padding: 0 10px;
   font-size: 12.5px;
-  color: var(--slate-500);
-}
-
-.sync-status-pill {
-  font-size: 11.5px;
-  color: var(--slate-600);
-  background: var(--slate-50);
-  border: 1px solid var(--slate-200);
-  padding: 5px 12px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  background-color: #10b981;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
-}
-
-.executive-grid {
-  display: grid;
-  grid-template-columns: 1.65fr 1.35fr;
-  gap: 24px;
-}
-
-.funnel-container {
-  background: #f8fafc;
-  border: 1px solid var(--slate-200);
+  border: 1px solid var(--slate-300);
   border-radius: var(--radius);
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-}
-
-.funnel-title-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--slate-600);
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.funnel-cr-badge {
-  font-size: 11px;
-  font-weight: 700;
-  color: #1d64d8;
-  background: #eff6ff;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.funnel-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.funnel-step {
   background: var(--white);
-  border: 1px solid var(--slate-200);
-  border-radius: 6px;
-  padding: 9px 12px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  color: var(--slate-800);
+  outline: none;
+  cursor: pointer;
 }
-
-.step-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 5px;
+.sales-region-filter select:focus {
+  border-color: var(--primary);
 }
-
-.step-label {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--slate-700);
+.sortable-th {
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
 }
-
-.step-val {
-  font-size: 15px;
-  font-weight: 800;
-  font-family: var(--font-mono);
-  color: var(--slate-900);
-}
-
-.step-bar-wrap {
-  width: 100%;
-  height: 7px;
+.sortable-th:hover {
   background: var(--slate-100);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 4px;
 }
-
-.step-bar {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.4s ease;
-}
-
-.bar-clicks   { background: linear-gradient(90deg, #3b82f6, #1d4ed8); }
-.bar-leads    { background: linear-gradient(90deg, #8b5cf6, #6d28d9); }
-.bar-don      { background: linear-gradient(90deg, #10b981, #047857); }
-.bar-complete { background: linear-gradient(90deg, #f59e0b, #d97706); }
-
-.step-sub-wrap {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--slate-500);
-}
-
-.funnel-connector {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 1px 0;
-  font-size: 11px;
-  color: var(--slate-500);
-}
-
-.connector-arrow {
-  color: var(--slate-400);
-  font-size: 11px;
-}
-
-.executive-metrics-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.exec-metric-card {
-  background: var(--white);
-  border: 1px solid var(--slate-200);
-  border-radius: var(--radius);
-  padding: 13px 16px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.exec-metric-card.highlight-card {
-  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
-  border-color: #bbf7d0;
-}
-
-.exec-metric-card.runrate-card {
-  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-  border-color: #bfdbfe;
-}
-
-.metric-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.metric-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--slate-600);
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.metric-pill {
+.sort-indicator {
+  display: inline-block;
+  margin-left: 4px;
   font-size: 10px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
+  color: var(--slate-400);
+}
+.region-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
   background: var(--slate-100);
   color: var(--slate-700);
-}
-
-.pill-success {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.metric-main {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-}
-
-.metric-num {
-  font-size: 24px;
-  font-weight: 800;
-  font-family: var(--font-mono);
-  color: var(--slate-900);
-  letter-spacing: -0.5px;
-}
-
-.metric-unit {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--slate-600);
-}
-
-.metric-sub {
-  font-size: 13.5px;
-  font-weight: 600;
-  font-family: var(--font-mono);
-  color: var(--slate-500);
-}
-
-.exec-progress-bar-bg {
-  width: 100%;
-  height: 7px;
-  background: var(--slate-100);
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 3px 0 2px;
-}
-
-.exec-progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #10b981, #059669);
-  border-radius: 4px;
-  transition: width 0.4s ease;
-}
-
-.metric-desc {
-  font-size: 11.5px;
-  color: var(--slate-500);
-  line-height: 1.4;
-}
-
-.text-success {
-  color: #059669 !important;
+  border: 1px solid var(--slate-200);
 }

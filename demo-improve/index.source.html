@@ -383,11 +383,7 @@
           <div class="section-desc">Phân định nhân viên Đã dùng / Chưa dùng để Trưởng phòng và Giám đốc Chi nhánh kịp thời chỉ đạo, đôn đốc</div>
         </div>
 
-        <button type="button" id="btnExportSales" class="btn-primary" style="background: var(--success);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          Xuất Excel Danh Sách
-        </button>
-      </div>
+        </div>
 
       <!-- Sales Summary Stats -->
       <div class="sales-summary-cards">
@@ -427,6 +423,21 @@
           </button>
         </div>
 
+        <!-- Bộ Lọc Theo Vùng -->
+        <div class="sales-region-filter">
+          <span style="font-size: 12px; font-weight: 600; color: var(--slate-600);">Vùng:</span>
+          <select id="salesRegionSelect">
+            <option value="all">Tất cả vùng</option>
+            <option value="Vùng 1">Vùng 1</option>
+            <option value="Vùng 2">Vùng 2</option>
+            <option value="Vùng 3">Vùng 3</option>
+            <option value="Vùng 4">Vùng 4</option>
+            <option value="Vùng 5">Vùng 5</option>
+            <option value="Vùng 6">Vùng 6</option>
+            <option value="Vùng 7">Vùng 7</option>
+          </select>
+        </div>
+
         <!-- Search Box -->
         <div class="sales-search-box">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--slate-400); margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -434,7 +445,7 @@
         </div>
       </div>
 
-      <!-- 8-Column Standard Sales Table -->
+      <!-- 10-Column Standard Sales Table -->
       <div class="table-responsive">
         <table class="data-table">
           <thead>
@@ -443,11 +454,20 @@
               <th>Mã Sales</th>
               <th>Họ và Tên Nhân Viên</th>
               <th>Đơn Vị / Chi Nhánh</th>
+              <th>Vùng</th>
               <th>Trạng Thái AM</th>
-              <th class="td-right">Lượt Clicks</th>
-              <th class="td-right">Leads (KHTN)</th>
-              <th class="td-right">Đơn Online Thành Công</th>
-              <th class="td-right" style="width: 120px;">Hành Động</th>
+              <th class="td-right sortable-th" onclick="window.sortSalesBy('clicks')" title="Click để đảo chiều sắp xếp Clicks">
+                Lượt Clicks <span class="sort-indicator">↕</span>
+              </th>
+              <th class="td-right sortable-th" onclick="window.sortSalesBy('lead')" title="Click để đảo chiều sắp xếp Leads">
+                Leads (KHTN) <span class="sort-indicator">↕</span>
+              </th>
+              <th class="td-right sortable-th" onclick="window.sortSalesBy('don')" title="Click để đảo chiều sắp xếp Đơn Online">
+                Đơn Online Thành Công <span class="sort-indicator">↕</span>
+              </th>
+              <th class="td-right sortable-th" onclick="window.sortSalesBy('revenue')" title="Click để đảo chiều sắp xếp Doanh Thu Ước Tính" style="color: #059669;">
+                Doanh Thu Ước Tính (VNĐ) <span class="sort-indicator">↕</span>
+              </th>
             </tr>
           </thead>
           <tbody id="salesTableBody">

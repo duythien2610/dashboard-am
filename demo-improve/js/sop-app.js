@@ -16,6 +16,7 @@
     fromDate: '2026-08-01',
     toDate: '2026-08-31',
     salesTab: 'all', // 'all', 'active', 'inactive'
+    salesRegionFilter: 'all',
     salesSearch: '',
     salesSortCol: 'clicks', // 'clicks', 'lead', 'don', 'name'
     salesSortAsc: false,
@@ -202,11 +203,16 @@
       });
     }
 
-    // Export Excel / CSV button
-    const btnExport = document.getElementById('btnExportSales');
-    if (btnExport) {
-      btnExport.addEventListener('click', exportSalesCSV);
+    const salesRegionSelect = document.getElementById('salesRegionSelect');
+    if (salesRegionSelect) {
+      salesRegionSelect.addEventListener('change', function () {
+        state.salesRegionFilter = this.value;
+        renderSalesTable();
+      });
     }
+
+    // Export Excel / CSV button
+    
   }
 
   // =========================================================================
@@ -326,99 +332,6 @@
   // =========================================================================
   // EXECUTIVE FUNNEL & FINANCIAL OVERVIEW (NHÓM 1 - BAN GIÁM ĐỐC)
   // =========================================================================
-  function renderExecutiveFunnel(cur, prev) {
-    if (!cur) return;
-
-    const clicks = cur.clicksReal || 0;
-    const leads = cur.lead || 0;
-    const don = cur.don || 0;
-    
-    // Tỷ lệ thi công thành công ước tính ~68.5% đơn không hủy
-    const completeOrders = Math.round(don * 0.685);
-    
-    // 1. Cập nhật số liệu Phễu
-    const elClicks = document.getElementById('funnelStepClicks');
-    const elLeads = document.getElementById('funnelStepLeads');
-    const elDon = document.getElementById('funnelStepDon');
-    const elComplete = document.getElementById('funnelStepComplete');
-    const elTotalCR = document.getElementById('funnelTotalCR');
-    const elRateLead = document.getElementById('funnelRateLead');
-    const elRateDon = document.getElementById('funnelRateDon');
-    const elRateComplete = document.getElementById('funnelRateComplete');
-
-    if (elClicks) elClicks.textContent = n(clicks);
-    if (elLeads) elLeads.textContent = n(leads);
-    if (elDon) elDon.textContent = n(don);
-    if (elComplete) elComplete.textContent = n(completeOrders);
-
-    const crTotal = clicks ? f1((don / clicks) * 100) : '0.0';
-    const rateLead = clicks ? f1((leads / clicks) * 100) : '0.0';
-    
-    if (elTotalCR) elTotalCR.textContent = crTotal + '%';
-    if (elRateLead) elRateLead.textContent = rateLead + '%';
-    if (elRateDon) elRateDon.textContent = crTotal + '% trên Clicks';
-    if (elRateComplete) elRateComplete.textContent = '68.5%';
-
-    // Thanh bar độ rộng tương quan trực quan
-    const barLeads = document.getElementById('funnelBarLeads');
-    const barDon = document.getElementById('funnelBarDon');
-    const barComplete = document.getElementById('funnelBarComplete');
-    if (barLeads) barLeads.style.width = '32%';
-    if (barDon) barDon.style.width = '52%';
-    if (barComplete) barComplete.style.width = '38%';
-
-    // 2. Cập nhật Doanh thu ước tính & Tiến độ (Financial Metrics)
-    const elRev = document.getElementById('execEstRevenue');
-    const elGoalPct = document.getElementById('execGoalPercent');
-    const elCurVsTarget = document.getElementById('execCurrentVsTarget');
-    const elGoalBar = document.getElementById('execGoalBar');
-    const elGoalRemaining = document.getElementById('execGoalRemaining');
-    const elRunRate = document.getElementById('execRunRateForecast');
-    const elRunRateNote = document.getElementById('execRunRateNote');
-
-    let target = 8000;
-    let estRev = '2.43 Tỷ';
-    let runRateForecast = 7850;
-    let paceDaily = 175;
-
-    if (state.period === 't7') {
-      target = 7500;
-      estRev = '2.21 Tỷ';
-      runRateForecast = 4960;
-      paceDaily = 160;
-    } else if (state.period === 'year2026') {
-      target = 45000;
-      estRev = '16.62 Tỷ';
-      runRateForecast = 44200;
-      paceDaily = 155;
-    } else {
-      // Tính tương đối theo don thực tế
-      const valBillion = (completeOrders * 650000) / 1000000000;
-      estRev = f1(valBillion) + ' Tỷ';
-    }
-
-    const pctAchieved = target ? Math.min(100, (don / target) * 100) : 0;
-    const remaining = Math.max(0, target - don);
-
-    if (elRev) elRev.textContent = estRev;
-    if (elGoalPct) elGoalPct.textContent = f1(pctAchieved) + '%';
-    if (elCurVsTarget) elCurVsTarget.textContent = n(don);
-    if (elGoalBar) elGoalBar.style.width = f1(pctAchieved) + '%';
-    if (elGoalRemaining) {
-      elGoalRemaining.textContent = remaining > 0 
-        ? `Còn thiếu ${n(remaining)} đơn để đạt mốc 100% KPI kỳ` 
-        : 'Đã vượt chỉ tiêu KPI kỳ đề ra!';
-    }
-    if (elRunRate) {
-      const pctForecast = target ? f1((runRateForecast / target) * 100) : 100;
-      elRunRate.textContent = `${n(runRateForecast)} Đơn (~${pctForecast}%)`;
-    }
-    if (elRunRateNote) {
-      const pctForecast = target ? f1((runRateForecast / target) * 100) : 100;
-      elRunRateNote.textContent = `Vận tốc hiện tại: ~${paceDaily} đơn/ngày · Dự kiến hoàn thành ${pctForecast}% chỉ tiêu kỳ`;
-    }
-  }
-
   function renderKPICards(cur, prev) {
     const isCmp = state.period === 'cmp';
     const isYear = state.period === 'year2026';
@@ -785,6 +698,11 @@
 
     let list = [...window.FPT_SALES_ROSTER];
 
+    // Filter by Region dropdown
+    if (state.salesRegionFilter && state.salesRegionFilter !== 'all') {
+      list = list.filter(s => s.region === state.salesRegionFilter);
+    }
+
     // Filter by tab
     if (state.salesTab === 'active') {
       list = list.filter(s => s.status === 'active');
@@ -798,28 +716,24 @@
       list = list.filter(s => 
         s.name.toLowerCase().includes(q) || 
         s.code.toLowerCase().includes(q) || 
-        s.branch.toLowerCase().includes(q)
+        s.branch.toLowerCase().includes(q) ||
+        (s.region && s.region.toLowerCase().includes(q))
       );
     }
 
-    // Filter by Region & Branch if set
-    if (state.region !== 'all' && window.FPT_REGIONS_BRANCHES[state.region]) {
-      const regionName = window.FPT_REGIONS_BRANCHES[state.region].name;
-      list = list.filter(s => regionName.includes(s.region));
-    }
-    if (state.branch !== 'all') {
-      list = list.filter(s => s.branch === state.branch);
-    }
+    // Update Counts in Summary Cards (Preserving AM Coverage Rate)
+    const baseRoster = (state.salesRegionFilter && state.salesRegionFilter !== 'all')
+      ? window.FPT_SALES_ROSTER.filter(s => s.region === state.salesRegionFilter)
+      : window.FPT_SALES_ROSTER;
 
-    // Update Counts in Summary
-    const totalCount = window.FPT_SALES_ROSTER.length;
-    const activeCount = window.FPT_SALES_ROSTER.filter(s => s.status === 'active').length;
+    const totalCount = baseRoster.length;
+    const activeCount = baseRoster.filter(s => s.status === 'active').length;
     const inactiveCount = totalCount - activeCount;
 
     document.getElementById('salesStatTotal').textContent = totalCount;
     document.getElementById('salesStatActive').textContent = activeCount;
     document.getElementById('salesStatInactive').textContent = inactiveCount;
-    document.getElementById('salesStatRate').textContent = f1((activeCount / totalCount) * 100) + '%';
+    document.getElementById('salesStatRate').textContent = totalCount ? f1((activeCount / totalCount) * 100) + '%' : '0.0%';
 
     document.getElementById('tabBadgeAll').textContent = totalCount;
     document.getElementById('tabBadgeActive').textContent = activeCount;
@@ -830,7 +744,7 @@
       return;
     }
 
-    // Compute revenue on the fly (don * 650,000 VNĐ cước đóng trước kỳ đầu)
+    // Compute exact revenue on the fly: 650,000 VNĐ / đơn
     list.forEach(s => { s.revenue = (s.don || 0) * 650000; });
 
     // Sort list according to state.salesSortCol
@@ -843,6 +757,7 @@
       return state.salesSortAsc ? (vA - vB) : (vB - vA);
     });
 
+    // 10 columns: STT, Mã Sales, Họ và Tên, Đơn Vị, Vùng, Trạng Thái, Clicks, Leads, Đơn Online, Doanh Thu Cụ Thể
     tbody.innerHTML = list.map((s, idx) => {
       const isActive = s.status === 'active';
       const statusBadge = isActive 
@@ -855,18 +770,12 @@
           <td class="td-mono" style="color: #475569;">${s.code}</td>
           <td style="font-weight: 600;">${s.name}</td>
           <td>${s.branch}</td>
+          <td><span class="region-pill">${s.region}</span></td>
           <td>${statusBadge}</td>
           <td class="td-right td-mono">${n(s.clicks)}</td>
           <td class="td-right td-mono">${n(s.lead)}</td>
           <td class="td-right td-mono" style="font-weight: 600;">${n(s.don)}</td>
-          <td class="td-right td-mono" style="color: #059669; font-weight: 700;">${formatMoney(s.revenue)}</td>
-          <td class="td-right" style="white-space: nowrap;">
-            <button class="btn-secondary" style="height: 28px; padding: 0 8px; font-size: 11px;" onclick="window.openSalesModal('${s.code}')">Xem Link</button>
-            ${isActive 
-              ? `<button class="btn-secondary" style="height: 28px; padding: 0 8px; font-size: 11px; margin-left: 4px;" onclick="copyLink('${s.link}', this)">Chép link</button>`
-              : `<button class="btn-primary" style="height: 28px; padding: 0 8px; font-size: 11px; background: #ea580c; margin-left: 4px;" onclick="alert('Đã gửi thông báo nhắc nhở đôn đốc tới nhân viên: ${s.name} (${s.code})')">Đôn đốc</button>`
-            }
-          </td>
+          <td class="td-right td-mono" style="color: #059669; font-weight: 700;">${n(s.revenue)} đ</td>
         </tr>
       `;
     }).join('');
@@ -897,7 +806,7 @@
             <td style="font-weight: 600;">${s.name}</td>
             <td>${s.vung}</td>
             <td class="td-right td-mono" style="font-weight: 600;">${n(s.don)}</td>
-            <td class="td-right td-mono" style="color: #059669; font-weight: 700;">${formatMoney(s.don * 650000)}</td>
+            <td class="td-right td-mono" style="color: #059669; font-weight: 700;">${n(s.don * 650000)} đ</td>
             <td class="td-right td-mono">${n(s.lead)}</td>
             <td class="td-right td-mono">${n(s.clicks)}</td>
             <td class="td-right td-mono">${cr}</td>
@@ -928,7 +837,7 @@
           <td class="td-right td-mono">${n(c.unique)}</td>
           <td class="td-right td-mono">${n(c.lead)}</td>
           <td class="td-right td-mono" style="font-weight: 600;">${n(c.don)}</td>
-          <td class="td-right td-mono" style="color: #059669; font-weight: 700;">${formatMoney(c.don * 650000)}</td>
+          <td class="td-right td-mono" style="color: #059669; font-weight: 700;">${n(c.don * 650000)} đ</td>
         </tr>
       `).join('');
     }
@@ -986,3 +895,9 @@
   };
 
 })();
+
+  window.sortSalesBy = function (column) {
+    state.salesSortAsc = state.salesSortCol === column ? !state.salesSortAsc : false;
+    state.salesSortCol = column;
+    renderSalesTable();
+  };
